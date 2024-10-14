@@ -1,26 +1,35 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'
-                // Your build steps here
+                sh 'make' // or any build command you need
             }
         }
         
         stage('Test') {
             steps {
                 echo 'Testing...'
-                // Your test steps here
+                sh 'make test' // run your tests
             }
         }
         
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                // Your deployment steps here
+                sh 'make deploy' // your deployment command
             }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
